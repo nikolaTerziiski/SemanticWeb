@@ -1,0 +1,29 @@
+{
+  "doc": "Barolo.txt",
+  "matches": [
+    {
+      "start": 72,
+      "end": 76,
+      "surface": "wine",
+      "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Wine"
+    },
+    {
+      "start": 192,
+      "end": 196,
+      "surface": "wine",
+      "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Wine"
+    },
+    {
+      "start": 122,
+      "end": 128,
+      "surface": "region",
+      "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Region"
+    },
+    {
+      "start": 12,
+      "end": 15,
+      "surface": "red",
+      "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Red"
+    }
+  ]
+}
