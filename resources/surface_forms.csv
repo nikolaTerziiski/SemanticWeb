@@ -1,0 +1,250 @@
+form,uri
+Wine Ontology,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine
+wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Wine
+Napa Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#NapaRegion
+Petite Syrah,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PetiteSyrah
+Meursault,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Meursault
+Malbec Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MalbecGrape
+Clos De Vougeot,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ClosDeVougeot
+St Genevieve,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#StGenevieve
+USRegion,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#USRegion
+Schloss Rothermel Trochenbierenauslese Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SchlossRothermelTrochenbierenausleseRiesling
+has Color,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasColor
+Wine Taste,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineTaste
+Strong,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Strong
+California Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CaliforniaRegion
+Mountadam Pinot Noir,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountadamPinotNoir
+Rose,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Rose
+Chateau Margaux,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauMargaux
+Congress Springs Semillon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CongressSpringsSemillon
+Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Riesling
+Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Chardonnay
+Schloss Rothermel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SchlossRothermel
+German Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#GermanWine
+Santa Cruz Mountain Vineyard,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SantaCruzMountainVineyard
+Sweet,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Sweet
+White Table Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteTableWine
+Port,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Port
+Gary Farrell,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#GaryFarrell
+Pauillac Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PauillacRegion
+Cotes DOr,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CotesDOr
+Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SauvignonBlanc
+Stonleigh Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#StonleighSauvignonBlanc
+Red Burgundy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RedBurgundy
+Puligny Montrachet,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PulignyMontrachet
+Kathryn Kennedy Lateral,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#KathrynKennedyLateral
+Texas Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#TexasRegion
+Off Dry,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#OffDry
+Corbans Private Bin Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CorbansPrivateBinSauvignonBlanc
+Santa Barbara Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SantaBarbaraRegion
+Longridge Merlot,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#LongridgeMerlot
+Chenin Blanc Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CheninBlancGrape
+Moderate,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Moderate
+Meursault Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MeursaultRegion
+Kalin Cellars,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#KalinCellars
+Wine Sugar,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineSugar
+Muscadet Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MuscadetRegion
+Corbans,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Corbans
+located In,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#locatedIn
+American Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#AmericanWine
+Chianti Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChiantiRegion
+Sean Thackrey Sirius Petite Syrah,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SeanThackreySiriusPetiteSyrah
+Wine Descriptor,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineDescriptor
+Merlot Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MerlotGrape
+Edna Valley Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#EdnaValleyRegion
+Cabernet Franc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CabernetFranc
+Pinot Blanc Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PinotBlancGrape
+Chateau Lafite Rothschild Pauillac,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauLafiteRothschildPauillac
+Arroyo Grande Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ArroyoGrandeRegion
+Rose DAnjou,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RoseDAnjou
+Mountadam Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountadamRiesling
+French Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FrenchWine
+Chianti Classico,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChiantiClassico
+Chateau De Meursault Meursault,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauDeMeursaultMeursault
+Forman Cabernet Sauvignon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FormanCabernetSauvignon
+Dry,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Dry
+Red Bordeaux,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RedBordeaux
+Saucelito Canyon Zinfandel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SaucelitoCanyonZinfandel
+year Value,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#yearValue
+Chateau DYchem Sauterne,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauDYchemSauterne
+Pinot Noir Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PinotNoirGrape
+Sevre Et Maine Muscadet,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SevreEtMaineMuscadet
+Margaux Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MargauxRegion
+has Body,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasBody
+Loire,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Loire
+Taylor Port,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#TaylorPort
+Early Harvest,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#EarlyHarvest
+Whitehall Lane Primavera,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhitehallLanePrimavera
+Corbans Dry White Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CorbansDryWhiteRiesling
+Sauternes,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Sauternes
+Clos De La Poussie Sancerre,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ClosDeLaPoussieSancerre
+Peter Mccoy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PeterMccoy
+Red Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RedWine
+Anjou Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#AnjouRegion
+Bourgogne Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#BourgogneRegion
+has Flavor,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasFlavor
+Bancroft Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#BancroftChardonnay
+Texas Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#TexasWine
+Muscadet,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Muscadet
+Gary Farrell Merlot,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#GaryFarrellMerlot
+French Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FrenchRegion
+Wine Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineGrape
+Forman,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Forman
+Page Mill Winery Cabernet Sauvignon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PageMillWineryCabernetSauvignon
+Light,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Light
+Kathryn Kennedy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#KathrynKennedy
+Longridge,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Longridge
+Chateau Morgon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauMorgon
+made From Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#madeFromGrape
+Medoc Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MedocRegion
+Stonleigh,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Stonleigh
+Chateau Cheval Blanc St Emilion,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauChevalBlancStEmilion
+Central Texas Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CentralTexasRegion
+Cotturi,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Cotturi
+Wine Body,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineBody
+Mendocino Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MendocinoRegion
+Mountadam Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountadamChardonnay
+Marietta,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Marietta
+Cotturi Zinfandel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CotturiZinfandel
+Dry Red Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DryRedWine
+Tours,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Tours
+Saucelito Canyon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SaucelitoCanyon
+Kalin Cellars Semillon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#KalinCellarsSemillon
+Semillon Or Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SemillonOrSauvignonBlanc
+Alsace Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#AlsaceRegion
+White Bordeaux,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteBordeaux
+New Zealand Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#NewZealandRegion
+Corton Montrachet White Burgundy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CortonMontrachetWhiteBurgundy
+Forman Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FormanChardonnay
+Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Region
+Australian Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#AustralianRegion
+Chateau DYchem,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauDYchem
+Chateau Cheval Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauChevalBlanc
+Chateau Morgon Beaujolais,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauMorgonBeaujolais
+Saucelito Canyon Zinfandel1998,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SaucelitoCanyonZinfandel1998
+Sonoma Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SonomaRegion
+Pinot Noir,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PinotNoir
+Tours Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ToursRegion
+Portugal Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PortugalRegion
+Cabernet Sauvignon Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CabernetSauvignonGrape
+Corton Montrachet,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CortonMontrachet
+Chateau Lafite Rothschild,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauLafiteRothschild
+produces Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#producesWine
+Marietta Cabernet Sauvignon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MariettaCabernetSauvignon
+Schloss Volrad Trochenbierenauslese Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SchlossVolradTrochenbierenausleseRiesling
+St Genevieve Texas White,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#StGenevieveTexasWhite
+Wine Flavor,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineFlavor
+Marietta Petite Syrah,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MariettaPetiteSyrah
+South Australia Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SouthAustraliaRegion
+Handley,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Handley
+Central Coast Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CentralCoastRegion
+Cotes DOr Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CotesDOrRegion
+Vintage Year,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#VintageYear
+Selaks Ice Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SelaksIceWine
+Pauillac,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Pauillac
+Anjou,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Anjou
+California Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CaliforniaWine
+Alsatian Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#AlsatianWine
+White Loire,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteLoire
+Elyse Zinfandel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ElyseZinfandel
+Year1998,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Year1998
+Taylor,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Taylor
+Whitehall Lane,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhitehallLane
+has Sugar,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasSugar
+Vintage,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Vintage
+Schloss Volrad,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SchlossVolrad
+Margaux,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Margaux
+Dessert Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DessertWine
+Sangiovese Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SangioveseGrape
+Selaks,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Selaks
+Italian Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ItalianWine
+Puligny Montrachet White Burgundy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PulignyMontrachetWhiteBurgundy
+Dry White Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DryWhiteWine
+Late Harvest,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#LateHarvest
+Sancerre Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SancerreRegion
+Sauvignon Blanc Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SauvignonBlancGrape
+has Maker,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasMaker
+Sevre Et Maine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SevreEtMaine
+Congress Springs,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CongressSprings
+has Wine Descriptor,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasWineDescriptor
+Clos De La Poussie,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ClosDeLaPoussie
+Ventana Chenin Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#VentanaCheninBlanc
+Petite Verdot Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PetiteVerdotGrape
+Zinfandel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Zinfandel
+Gamay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Gamay
+Italian Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ItalianRegion
+Winery,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Winery
+Page Mill Winery,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PageMillWinery
+Lane Tanner,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#LaneTanner
+Cabernet Franc Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CabernetFrancGrape
+Pinot Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PinotBlanc
+Riesling Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RieslingGrape
+Marietta Old Vines Red,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MariettaOldVinesRed
+Sweet Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SweetRiesling
+White,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#White
+Bordeaux Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#BordeauxRegion
+Clos De Vougeot Cotes DOr,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ClosDeVougeotCotesDOr
+Semillon Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SemillonGrape
+adjacent Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#adjacentRegion
+Merlot,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Merlot
+White Burgundy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteBurgundy
+Foxen Chenin Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FoxenCheninBlanc
+Petite Syrah Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PetiteSyrahGrape
+Table Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#TableWine
+Santa Cruz Mountains Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SantaCruzMountainsRegion
+Full Bodied Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#FullBodiedWine
+Mount Eden Vineyard Estate Pinot Noir,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountEdenVineyardEstatePinotNoir
+Sancerre,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Sancerre
+Marietta Zinfandel,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MariettaZinfandel
+Chardonnay Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChardonnayGrape
+Chianti,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Chianti
+Sean Thackrey,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SeanThackrey
+Ice Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#IceWine
+Rose Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RoseWine
+Dry Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DryWine
+has Vintage Year,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#hasVintageYear
+Sauterne Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SauterneRegion
+Medoc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Medoc
+Red Table Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#RedTableWine
+Delicate,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Delicate
+Lane Tanner Pinot Noir,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#LaneTannerPinotNoir
+Peter Mccoy Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#PeterMccoyChardonnay
+DAnjou,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DAnjou
+Zinfandel Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ZinfandelGrape
+Mc Guinnesso,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#McGuinnesso
+Chateau Margaux Winery,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauMargauxWinery
+Full,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Full
+Sweet Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SweetWine
+Mount Eden Vineyard,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountEdenVineyard
+Dry Riesling,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#DryRiesling
+Burgundy,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Burgundy
+Mount Eden Vineyard Edna Valley Chardonnay,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#MountEdenVineyardEdnaValleyChardonnay
+Beringer,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Beringer
+White Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteWine
+Bancroft,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Bancroft
+Elyse,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Elyse
+Ventana,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Ventana
+Meritage,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Meritage
+Loire Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#LoireRegion
+Medium,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Medium
+Germany Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#GermanyRegion
+Red,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Red
+Beaujolais,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Beaujolais
+Whitehall Lane Cabernet Franc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhitehallLaneCabernetFranc
+White Non Sweet Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WhiteNonSweetWine
+Mountadam,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Mountadam
+Cabernet Sauvignon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CabernetSauvignon
+Semillon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Semillon
+made Into Wine,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#madeIntoWine
+Corbans Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CorbansSauvignonBlanc
+Santa Cruz Mountain Vineyard Cabernet Sauvignon,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SantaCruzMountainVineyardCabernetSauvignon
+Chenin Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CheninBlanc
+Beaujolais Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#BeaujolaisRegion
+St Emilion,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#StEmilion
+Bordeaux,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Bordeaux
+Foxen,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Foxen
+Chateau De Meursault,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauDeMeursault
+Selaks Sauvignon Blanc,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#SelaksSauvignonBlanc
+Gamay Grape,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#GamayGrape
+Wine Color,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#WineColor
+St Emilion Region,http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#StEmilionRegion
