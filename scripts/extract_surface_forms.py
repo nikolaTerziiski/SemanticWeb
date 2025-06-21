@@ -5,7 +5,7 @@ from rdflib import Graph, RDFS, Namespace
 
 # --- Конфигурация на пътищата ---
 ROOT      = Path(__file__).resolve().parent.parent
-ONTO_PATH = ROOT / "ontology" / "wine" / "wine.rdf"
+ONTO_PATH = ROOT / "ontology" / "wine.rdf"
 OUT_CSV   = ROOT / "resources" / "surface_forms.csv"
 
 # --- Namespace за skos ---
