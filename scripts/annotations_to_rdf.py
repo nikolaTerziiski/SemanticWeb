@@ -14,7 +14,7 @@ from urllib import request
 # --- Настройки ---
 ROOT = Path(__file__).resolve().parent.parent
 IN_JSON = ROOT / "output"           # папката с matcher_exact резултатите
-ENDPOINT = "http://localhost:7200/repositories/wine/statements"
+ENDPOINT = "http://localhost:7200/repositories/WineRepo/statements"
 
 # Namespace prefixes
 TTL_HEADER = (

@@ -1,0 +1,42 @@
+[
+  {
+    "doc": "Barolo.txt",
+    "matches": [
+      {
+        "start": 0,
+        "end": 6,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Barolo"
+      },
+      {
+        "start": 12,
+        "end": 15,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Red"
+      },
+      {
+        "start": 19,
+        "end": 23,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#Wine"
+      }
+    ]
+  },
+  {
+    "doc": "Chateau_Margaux.txt",
+    "matches": [
+      {
+        "start": 0,
+        "end": 16,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#ChateauMargaux"
+      },
+      {
+        "start": 44,
+        "end": 61,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#BordeauxRegion"
+      },
+      {
+        "start": 84,
+        "end": 102,
+        "uri": "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#CabernetSauvignon"
+      }
+    ]
+  }
+]
