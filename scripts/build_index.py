@@ -26,9 +26,9 @@ LABELS_FILE = "resources/labels.json"
 labels = []
 with open(INPUT_CSV, newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f)
-    # Очакваме колонка "surface_form"
+    # Очакваме колонка "form"
     for row in reader:
-        labels.append(row["surface_form"])
+        labels.append(row["form"])
 
 print(f"Loaded {len(labels)} surface forms.")
 
