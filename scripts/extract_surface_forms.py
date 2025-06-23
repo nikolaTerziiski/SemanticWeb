@@ -1,48 +1,43 @@
 #!/usr/bin/env python3
-import csv, re
+"""
+build_index.py
+
+Чете surface_forms.csv, вика /v1/embeddings на LM Studio,
+нормализира векторите и строи FAISS индекс.
+"""
+
+import requests, json, csv, os
+import numpy as np
+import faiss                         # pip install faiss-cpu
 from pathlib import Path
-from rdflib import Graph, RDFS, Namespace, URIRef
 
-# --- Настройки ---
-ROOT      = Path(__file__).resolve().parent.parent
-ONTO_PATH = ROOT / "ontology" / "wine.rdf"
-OUT_CSV   = ROOT / "resources" / "surface_forms.csv"
+API_URL   = "http://localhost:1234/v1/embeddings"
+MODEL     = "local-embeddings"
+INPUT_CSV = Path("resources/surface_forms.csv")
+INDEX_OUT = Path("resources/ont_index.faiss")
+LABELS_JS = Path("resources/labels.json")
 
-SKOS      = Namespace("http://www.w3.org/2004/02/skos/core#")
+# --- 1. зареждаме форми и URI-та ---
+forms, uris = [], []
+with INPUT_CSV.open(encoding="utf-8") as f:
+    for row in csv.DictReader(f):
+        forms.append(row["form"])
+        uris.append(row["uri"])
 
-# 1) Зареди RDF/XML
-g = Graph()
-g.parse(ONTO_PATH.resolve().as_uri(), format="xml")
+# --- 2. викаме embeddings ---
+resp = requests.post(API_URL, json={"model": MODEL, "input": forms})
+resp.raise_for_status()
+vectors = np.array([d["embedding"] for d in resp.json()["data"]], dtype="float32")
 
-# 2) Събери всички рdfs:label и skos:altLabel
-entries = []
-for s, p, o in g.triples((None, RDFS.label, None)):
-    if o.language in (None, "", "en"):
-        entries.append((str(o), str(s)))
-for s, p, o in g.triples((None, SKOS.altLabel, None)):
-    if o.language in (None, "", "en"):
-        entries.append((str(o), str(s)))
+# --- 3. нормализация + индекс ---
+faiss.normalize_L2(vectors)                                    # cosine sim  :contentReference[oaicite:1]{index=1}
+dim   = vectors.shape[1]
+index = faiss.IndexFlatIP(dim)
+index.add(vectors)
 
-# 3) Фолбек на URI local name за всеки ресурс в wine namespace
-wine_ns = "http://www.w3.org/TR/2003/PR-owl-guide-20031209/wine#"
-for s in set(s for s in g.subjects() if isinstance(s, URIRef) and str(s).startswith(wine_ns)):
-    uri = str(s)
-    # ако вече нямаме entry за този URI
-    if not any(uri == e[1] for e in entries):
-        local = uri.split("#")[-1]
-        # CamelCase -> "Camel Case"
-        form = re.sub(r"(?<=[a-z])(?=[A-Z])", " ", local)
-        entries.append((form, uri))
+# --- 4. запис ---
+INDEX_OUT.parent.mkdir(exist_ok=True, parents=True)
+faiss.write_index(index, str(INDEX_OUT))
+json.dump({"forms": forms, "uris": uris}, LABELS_JS.open("w", encoding="utf-8"), ensure_ascii=False, indent=2)
 
-# 4) Напиши CSV без дубли
-seen = set()
-with OUT_CSV.open("w", newline="", encoding="utf-8") as f:
-    writer = csv.writer(f)
-    writer.writerow(["form", "uri"])
-    for form, uri in entries:
-        key = (form.lower(), uri)
-        if key not in seen:
-            writer.writerow([form, uri])
-            seen.add(key)
-
-print(f"✅ Written {len(seen)} surface forms to {OUT_CSV}")
+print(f"FAISS index => {INDEX_OUT} ; labels => {LABELS_JS}")

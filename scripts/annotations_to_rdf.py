@@ -1,63 +1,38 @@
 #!/usr/bin/env python3
-"""Convert matcher output to RDF and load it into GraphDB.
-
-This version does not rely on external libraries so it can run in a
-restricted environment. It builds a small Turtle document manually and
-POSTs it to the GraphDB Graph Store endpoint using ``urllib``.
+"""
+annotations_to_rdf.py  out.json  http://localhost:7200/repositories/WineRepo
+Конвертира JSON анотации към OA RDF (Turtle) и POST-ва в GraphDB.
 """
 
-import json
-import uuid
-from pathlib import Path
-from urllib import request
+import sys, json, datetime, requests, textwrap
 
-# --- Настройки ---
-ROOT = Path(__file__).resolve().parent.parent
-IN_JSON = ROOT / "output"           # папката с matcher_exact резултатите
-ENDPOINT = "http://localhost:7200/repositories/WineRepo/statements"
+if len(sys.argv) != 3:
+    print("Usage: annotations_to_rdf.py predictions.json GRAPHDB_REPO_URL")
+    sys.exit(1)
 
-# Namespace prefixes
-TTL_HEADER = (
-    "@prefix oa: <http://www.w3.org/ns/oa#> .\n"
-    "@prefix ex: <http://example.org/ann#> .\n\n"
-)
+PRED_JSON, GDB = sys.argv[1], sys.argv[2]
+data = json.load(open(PRED_JSON, encoding="utf-8"))
+ts   = datetime.datetime.utcnow().isoformat()
 
-ttl_lines = [TTL_HEADER]
-triple_count = 0
-
-# 1) Прочитаме всеки JSON
-for js in IN_JSON.glob("*.json"):
-    data = json.loads(js.read_text(encoding="utf-8"))
-    doc = data["doc"]
-    for m in data["matches"]:
-        ann = f"ex:{uuid.uuid4()}"
-        tgt = f"ex:{uuid.uuid4()}"
-        ttl_lines.extend(
-            [
-                f"{ann} a oa:Annotation ;",
-                f"    oa:hasBody <{m['uri']}> ;",
-                f"    oa:hasTarget {tgt} .",
-                "",
-                f"{tgt} a oa:TextPositionSelector ;",
-                f"    oa:hasSource {json.dumps(doc)} ;",
-                f"    oa:start {m['start']} ;",
-                f"    oa:end {m['end']} .",
-                "",
+ttl_chunks = []
+for i, ann in enumerate(data):
+    ttl_chunks.append(textwrap.dedent(f"""
+      <ann_{i}> a <http://www.w3.org/ns/oa#Annotation> ;
+        <http://www.w3.org/ns/oa#hasBody> <{ann['uri']}> ;
+        <http://www.w3.org/ns/oa#hasTarget> [
+            a <http://www.w3.org/ns/oa#SpecificResource> ;
+            <http://www.w3.org/ns/oa#hasSource> "{ann['doc']}" ;
+            <http://www.w3.org/ns/oa#hasSelector> [
+                 a <http://www.w3.org/ns/oa#TextPositionSelector> ;
+                 <http://www.w3.org/ns/oa#start> {ann['start']} ;
+                 <http://www.w3.org/ns/oa#end>   {ann['end']}
             ]
-        )
-        triple_count += 7
+        ] ;
+        <http://purl.org/dc/terms/created> "{ts}"^^<http://www.w3.org/2001/XMLSchema#dateTime> .
+    """).strip())
 
-ttl_data = "\n".join(ttl_lines)
-print(f"Генерирани са {triple_count} тройки; зареждаме в GraphDB…")
+ttl_doc = "@prefix oa: <http://www.w3.org/ns/oa#> .\n" + "\n\n".join(ttl_chunks)
 
-# 2) Публикуваме в GraphDB
-req = request.Request(
-    ENDPOINT,
-    data=ttl_data.encode("utf-8"),
-    headers={"Content-Type": "text/turtle"},
-    method="POST",
-)
-with request.urlopen(req) as resp:
-    resp.read()
-
-print("✅ Успешно заредени анотациите в GraphDB.")
+r = requests.post(f"{GDB}/statements", data=ttl_doc.encode("utf-8"),
+                  headers={"Content-Type": "text/turtle"})
+print(f"GraphDB response: {r.status_code} {r.text[:200]}")

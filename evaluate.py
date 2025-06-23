@@ -1,42 +1,38 @@
 #!/usr/bin/env python3
-import json
+"""
+evaluate.py   pred_dir/   gold_dir/
+Сравнява предсказаните и златните анотации, връща P / R / F1.
+"""
+
+import argparse, json
 from pathlib import Path
 
-def load_baseline(path):
-    data = json.load(open(path, encoding="utf-8"))
-    # ако файлът е обект с ключ "matches", ползваме него
-    matches = data.get("matches", data) if isinstance(data, dict) else data
-    return set((m["start"], m["end"], m["uri"]) for m in matches)
+def load_ann(path):
+    res = set()
+    for fp in Path(path).glob("*.json"):
+        for a in json.load(fp.open(encoding="utf-8")):
+            res.add((a["doc"], a["start"], a["end"], a["uri"]))
+    return res
 
-def load_gold(path):
-    raw = json.load(open(path, encoding="utf-8"))
-    gold_matches = []
-    if isinstance(raw, list):
-        # всеки елемент трябва да е { "doc":..., "matches":[...] }
-        for entry in raw:
-            gold_matches.extend(entry.get("matches", []))
-    elif isinstance(raw, dict) and "matches" in raw:
-        gold_matches = raw["matches"]
-    else:
-        raise ValueError("Неочакван формат на gold.json")
-    return set((m["start"], m["end"], m["uri"]) for m in gold_matches)
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("pred_dir")
+    ap.add_argument("gold_dir")
+    args = ap.parse_args()
+
+    pred = load_ann(args.pred_dir)
+    gold = load_ann(args.gold_dir)
+
+    tp = len(pred & gold)
+    fp = len(pred - gold)
+    fn = len(gold - pred)
+
+    prec = tp / (tp + fp) if tp+fp else 0
+    rec  = tp / (tp + fn) if tp+fn else 0
+    f1   = 2 * prec * rec / (prec + rec) if prec+rec else 0
+
+    print(f"TP={tp} FP={fp} FN={fn}")
+    print(f"Precision: {prec:.2%}  Recall: {rec:.2%}  F1: {f1:.2%}")
 
 if __name__ == "__main__":
-    # Пример: сравняваме само Barolo.json
-    baseline = load_baseline("output/Barolo.json")
-    gold     = load_gold("resources/gold.json")
-
-    tp = len(baseline & gold)
-    fp = len(baseline - gold)
-    fn = len(gold - baseline)
-
-    precision = tp / (tp + fp) if tp+fp else 0.0
-    recall    = tp / (tp + fn) if tp+fn else 0.0
-    f1        = 2 * precision * recall / (precision + recall) if precision+recall else 0.0
-
-    print(f"True Positives : {tp}")
-    print(f"False Positives: {fp}")
-    print(f"False Negatives: {fn}\n")
-    print(f"Precision = {precision:.2f}")
-    print(f"Recall    = {recall:.2f}")
-    print(f"F1-score  = {f1:.2f}")
+    main()

@@ -2,91 +2,79 @@
 """
 matcher_llm.py
 
-За всеки документ:
-  1) Делим текста на изречения
-  2) Правим embedding на всяко изречение
-  3) Търсим top-k кандидата в FAISS
-  4) (по избор) пращаме chat-заявка за дизамбиуация
-  5) Записваме резултата в JSON
+За подаден текстов файл:
+  • embed → FAISS top-k → (опц.) LLM Yes/No → span детекция
+  • записва JSON [{doc,start,end,uri}, …]
 """
 
-import requests
-import json
-import numpy as np
-import faiss
-import sys
-import os
-import nltk
-
-# --- Настройки ---
-API_URL_EMB = "http://localhost:1234/v1/embeddings"
-EMB_MODEL   = "local-embeddings"
-FAISS_INDEX = "resources/ont_index.faiss"
-LABELS_FILE = "resources/labels.json"
-OUTPUT_DIR  = "output"
-TOP_K       = 5
-
-# Initialize sentence tokenizer (изисква да сте инсталирали nltk punkt)
-nltk.download("punkt", quiet=True)
+import argparse, json, re, os, requests, faiss, numpy as np
+from pathlib import Path
+import nltk; nltk.download("punkt", quiet=True)
 from nltk.tokenize import sent_tokenize
 
-def load_index():
-    """Зарежда FAISS индекс и labels.json."""
-    index = faiss.read_index(FAISS_INDEX)
-    with open(LABELS_FILE, encoding='utf-8') as f:
-        labels = json.load(f)
-    return index, labels
+EMB_API = "http://localhost:1234/v1/embeddings"
+CHAT_API = "http://localhost:1234/v1/chat/completions"
+EMB_MODEL = "local-embeddings"
+CHAT_MODEL = "local-chat"           # кой чат-LLM e зареден
 
-def embed_texts(texts):
-    """Обща функция за embeddings на списък от текстове."""
-    resp = requests.post(API_URL_EMB, json={
-        "model": EMB_MODEL,
-        "input": texts
-    })
-    resp.raise_for_status()
-    data = resp.json()["data"]
-    return np.array([item["embedding"] for item in data], dtype="float32")
+def embed(texts):
+    r = requests.post(EMB_API, json={"model": EMB_MODEL, "input": texts})
+    r.raise_for_status()
+    return np.array([d["embedding"] for d in r.json()["data"]], dtype="float32")
 
-def process_document(doc_path, index, labels):
-    """Връща списък от ангажирания (sentence, top_k list)."""
-    text = open(doc_path, encoding='utf-8').read()
-    sentences = sent_tokenize(text)
-    # 1) Вземаме embeddings за целия списък
-    emb = embed_texts(sentences)
-    # (по желание: faiss.normalize_L2(emb))
-    # 2) Търсим Top-K кандидати за всяка embedding
-    D, I = index.search(emb, TOP_K)
-    results = []
-    for sent, distances, idxs in zip(sentences, D, I):
-        candidates = []
-        for score, idx in zip(distances, idxs):
-            candidates.append({
-                "label": labels[idx],
-                "score": float(score)
-            })
-        results.append({
-            "sentence": sent,
-            "candidates": candidates
-        })
-    return results
+def disamb(sentence, uri, form):
+    prompt = [
+      {"role":"system","content":"You are an ontology assistant."},
+      {"role":"user",
+       "content":f'In the sentence "{sentence}" does the string "{form}" refer to the concept <{uri}>? Answer Yes or No.'}
+    ]
+    try:
+        r = requests.post(CHAT_API, json={"model": CHAT_MODEL, "messages": prompt, "max_tokens":1})
+        r.raise_for_status()
+        return r.json()["choices"][0]["message"]["content"].strip().lower().startswith("y")
+    except Exception:
+        return True     # fallback: при грешка приеми Yes
+
+def all_spans(sent, form):
+    for m in re.finditer(re.escape(form), sent, flags=re.I):
+        yield m.start(), m.end()
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python matcher_llm.py path/to/document.txt")
-        sys.exit(1)
-    doc_path = sys.argv[1]
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+    ap = argparse.ArgumentParser()
+    ap.add_argument("doc", help="path to .txt")
+    ap.add_argument("--index", default="resources/ont_index.faiss")
+    ap.add_argument("--labels", default="resources/labels.json")
+    ap.add_argument("--topk", type=int, default=5)
+    ap.add_argument("--thr",  type=float, default=0.65)
+    ap.add_argument("-o", "--out", default="output")
+    args = ap.parse_args()
 
-    index, labels = load_index()
-    matches = process_document(doc_path, index, labels)
+    index = faiss.read_index(args.index)
+    lbl   = json.load(open(args.labels, encoding="utf-8"))
+    forms, uris = lbl["forms"], lbl["uris"]
 
-    # Записваме резултат в JSON
-    name = os.path.splitext(os.path.basename(doc_path))[0]
-    out_file = os.path.join(OUTPUT_DIR, f"{name}_llm.json")
-    with open(out_file, "w", encoding='utf-8') as f:
-        json.dump(matches, f, ensure_ascii=False, indent=2)
+    text = Path(args.doc).read_text(encoding="utf-8")
+    sentences = sent_tokenize(text)
 
-    print(f"Saved {len(matches)} sentence matches to {out_file}")
+    sent_vecs = embed(sentences)
+    faiss.normalize_L2(sent_vecs)
+    D, I = index.search(sent_vecs, args.topk)
+
+    preds = []
+    for sent, sims, idxs in zip(sentences, D, I):
+        for score, idx in zip(sims, idxs):
+            if score < args.thr:            # семантичен праг
+                continue
+            form, uri = forms[idx], uris[idx]
+            if not disamb(sent, uri, form):
+                continue
+            for s, e in all_spans(sent, form):
+                preds.append({"doc": os.path.basename(args.doc), "start": s, "end": e, "uri": uri})
+
+    Path(args.out).mkdir(exist_ok=True)
+    out_file = Path(args.out) / (Path(args.doc).stem + "_llm.json")
+    json.dump(preds, out_file.open("w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"{len(preds)} анотации => {out_file}")
 
 if __name__ == "__main__":
     main()
