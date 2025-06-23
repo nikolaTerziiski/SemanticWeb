@@ -2,62 +2,45 @@
 """
 build_index.py
 
-Изгражда FAISS индекс от surface_forms.csv:
-  1) Чете всички повърхностни форми (surface forms)
-  2) Вика локалния LMStudio /v1/embeddings endpoint
-  3) Съхранява FAISS индекс + JSON с формите
+1) Чете resources/surface_forms.csv (колони: uri,form)
+2) Извиква /v1/embeddings на LM Studio за списъка от форми
+3) Строи FAISS индекс и записва:
+      • resources/ont_index.faiss
+      • resources/labels.json   {"forms":[...], "uris":[...]}
 """
 
-import requests
-import json
-import numpy as np
-import faiss
-import csv
-import os
+import csv, json, os, requests, numpy as np, faiss
 
-# --- 1) Настройки ---
-API_URL = "http://localhost:1234/v1/embeddings"
-MODEL   = "local-embeddings"  # Както LM Studio връща в "model" полето
-INPUT_CSV = "resources/surface_forms.csv"
-INDEX_FILE = "resources/ont_index.faiss"
-LABELS_FILE = "resources/labels.json"
+# --- настройки ---
+API_URL      = "http://localhost:1234/v1/embeddings"
+EMB_MODEL    = "local-embeddings"
+CSV_IN       = "resources/surface_forms.csv"
+INDEX_OUT    = "resources/ont_index.faiss"
+LABELS_JSON  = "resources/labels.json"
 
-# --- 2) Зареждаме surface forms ---
-labels = []
-with open(INPUT_CSV, newline='', encoding='utf-8') as f:
-    reader = csv.DictReader(f)
-    # Очакваме колонка "form"
-    for row in reader:
-        labels.append(row["form"])
+# --- 1. четем CSV ---
+forms, uris = [], []
+with open(CSV_IN, newline='', encoding="utf-8") as f:
+    for row in csv.DictReader(f):
+        forms.append(row["form"])
+        uris.append(row["uri"])
+print(f"Loaded {len(forms)} surface forms.")
 
-print(f"Loaded {len(labels)} surface forms.")
-
-# --- 3) Викаме embedding endpoint ---
-payload = {
-    "model": MODEL,
-    "input": labels
-}
-resp = requests.post(API_URL, json=payload)
+# --- 2. embeddings ---
+resp = requests.post(API_URL, json={"model": EMB_MODEL, "input": forms})
 resp.raise_for_status()
-data = resp.json()["data"]
+vectors = np.array([d["embedding"] for d in resp.json()["data"]], dtype="float32")
 
-# --- 4) Извличаме embedding матрицата ---
-#   data[i]["embedding"] е списък от float
-vectors = np.array([item["embedding"] for item in data], dtype="float32")
-dim = vectors.shape[1]
-print(f"Received embeddings with dim={dim}.")
-
-# --- 5) Строим FAISS индекс ---
-index = faiss.IndexFlatIP(dim)        # inner-product (cosine след нормализация)
-# (ако искаме cosine, можем да нормираме матрицата: faiss.normalize_L2(vectors))
+# --- 3. нормализираме → индекс ---
+faiss.normalize_L2(vectors)              # cosine similarity
+index = faiss.IndexFlatIP(vectors.shape[1])
 index.add(vectors)
-print(f"FAISS index: added {index.ntotal} vectors.")
 
-# --- 6) Съхраняваме индекс и labels.json ---
-os.makedirs(os.path.dirname(INDEX_FILE), exist_ok=True)
-faiss.write_index(index, INDEX_FILE)
-with open(LABELS_FILE, "w", encoding='utf-8') as f:
-    json.dump(labels, f, ensure_ascii=False, indent=2)
+# --- 4. запис ---
+os.makedirs(os.path.dirname(INDEX_OUT), exist_ok=True)
+faiss.write_index(index, INDEX_OUT)
+with open(LABELS_JSON, "w", encoding="utf-8") as f:
+    json.dump({"forms": forms, "uris": uris}, f, ensure_ascii=False, indent=2)
 
-print(f"Saved index to {INDEX_FILE}")
-print(f"Saved labels to {LABELS_FILE}")
+print(f"Saved FAISS index → {INDEX_OUT}")
+print(f"Saved labels      → {LABELS_JSON}  (forms + uris)")
