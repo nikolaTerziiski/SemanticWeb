@@ -4,14 +4,50 @@ evaluate.py   pred_dir/   gold_dir/
 Сравнява предсказаните и златните анотации, връща P / R / F1.
 """
 
-import argparse, json
+import argparse
+import json
 from pathlib import Path
 
-def load_ann(path):
+def _load_file(fp: Path):
+    """Return set of (doc,start,end,uri) tuples from a single JSON file."""
+    data = json.load(fp.open(encoding="utf-8"))
+    items = []
+
+    if isinstance(data, list):
+        # could be a list of annotations or a list of doc blocks
+        if data and isinstance(data[0], dict) and "matches" in data[0]:
+            # list of {"doc":..., "matches": [...]} objects
+            for block in data:
+                doc = block.get("doc", "")
+                for m in block.get("matches", []):
+                    items.append(dict(m, doc=m.get("doc", doc)))
+        else:
+            items = data
+    elif isinstance(data, dict):
+        # formats like {"doc":..., "matches": [...]} are also supported
+        matches = data.get("matches")
+        if isinstance(matches, list):
+            doc = data.get("doc", "")
+            # propagate doc to matches if missing
+            items = [dict(m, doc=m.get("doc", doc)) for m in matches]
+        else:
+            # single annotation object
+            items = [data]
+
     res = set()
-    for fp in Path(path).glob("*.json"):
-        for a in json.load(fp.open(encoding="utf-8")):
-            res.add((a["doc"], a["start"], a["end"], a["uri"]))
+    for a in items:
+        res.add((a.get("doc", ""), a["start"], a["end"], a["uri"]))
+    return res
+
+
+def load_ann(path):
+    """Load annotations from a directory or a single file."""
+    path = Path(path)
+    files = [path] if path.is_file() else list(path.glob("*.json"))
+
+    res = set()
+    for fp in files:
+        res.update(_load_file(fp))
     return res
 
 def main():
