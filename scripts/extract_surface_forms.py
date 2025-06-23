@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 """
-build_index.py
+Generate embeddings for ontology surface forms and build a FAISS index.
 
-Чете surface_forms.csv, вика /v1/embeddings на LM Studio,
-нормализира векторите и строи FAISS индекс.
+The script reads ``resources/surface_forms.csv``, fetches embeddings from
+LM Studio's ``/v1/embeddings`` API, normalizes the vectors for cosine
+similarity, builds a FAISS index and writes both the index and a JSON
+file with the original forms and their URIs.
 """
 
 import requests, json, csv, os
@@ -30,7 +32,7 @@ resp.raise_for_status()
 vectors = np.array([d["embedding"] for d in resp.json()["data"]], dtype="float32")
 
 # --- 3. нормализация + индекс ---
-faiss.normalize_L2(vectors)                                    # cosine sim  :contentReference[oaicite:1]{index=1}
+faiss.normalize_L2(vectors)                                    # cosine sim
 dim   = vectors.shape[1]
 index = faiss.IndexFlatIP(dim)
 index.add(vectors)
