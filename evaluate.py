@@ -43,7 +43,14 @@ def _load_file(fp: Path):
 def load_ann(path):
     """Load annotations from a directory or a single file."""
     path = Path(path)
-    files = [path] if path.is_file() else list(path.glob("*.json"))
+    if path.exists():
+        files = [path] if path.is_file() else list(path.glob("*.json"))
+    else:
+        alt = path.with_suffix(".json")
+        if alt.exists():
+            files = [alt]
+        else:
+            raise FileNotFoundError(path)
 
     res = set()
     for fp in files:
