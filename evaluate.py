@@ -36,7 +36,15 @@ def _load_file(fp: Path):
 
     res = set()
     for a in items:
-        res.add((a.get("doc", ""), a["start"], a["end"], a["uri"]))
+        try:
+            start = int(a["start"])
+            end = int(a["end"])
+            uri = a["uri"]
+        except KeyError:
+            # skip entries that do not have the required fields
+            print(f"Warning: skipping invalid annotation in {fp.name}: {a}")
+            continue
+        res.add((a.get("doc", ""), start, end, uri))
     return res
 
 

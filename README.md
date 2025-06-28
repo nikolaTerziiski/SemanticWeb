@@ -18,6 +18,9 @@ Run the following steps to process a text file and evaluate the results:
    ```bash
    python evaluate.py output resources/gold.json
    ```
+   Make sure the `output/` directory contains JSON files in the form
+   `{ "doc": "...", "matches": [...] }`. Files that do not contain
+   `start`, `end` and `uri` fields will be ignored during evaluation.
 
 `evaluate.py` accepts either a directory of JSON files or a single JSON
 file for both the predictions and the gold annotations.
