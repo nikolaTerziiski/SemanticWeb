@@ -2,45 +2,77 @@
 """
 build_index.py
 
-1) Чете resources/surface_forms.csv (колони: uri,form)
-2) Извиква /v1/embeddings на LM Studio за списъка от форми
-3) Строи FAISS индекс и записва:
-      • resources/ont_index.faiss
-      • resources/labels.json   {"forms":[...], "uris":[...]}
+Build a FAISS IndexFlatIP (cosine similarity) over ontology surface forms
+and save it as ont_index.faiss plus a parallel labels.json mapping.
 """
+import argparse
+import csv
+import json
+from pathlib import Path
+import sys
 
-import csv, json, os, requests, numpy as np, faiss
+# --- Start of Changes ---
+# Add project root to path to allow imports from other directories
+ROOT = Path(__file__).resolve().parent.parent
+sys.path.append(str(ROOT))
+# --- End of Changes ---
 
-# --- настройки ---
-API_URL      = "http://localhost:1234/v1/embeddings"
-EMB_MODEL    = "local-embeddings"
-CSV_IN       = "resources/surface_forms.csv"
-INDEX_OUT    = "resources/ont_index.faiss"
-LABELS_JSON  = "resources/labels.json"
+import faiss
+import numpy as np
+import requests
 
-# --- 1. четем CSV ---
-forms, uris = [], []
-with open(CSV_IN, newline='', encoding="utf-8") as f:
-    for row in csv.DictReader(f):
-        forms.append(row["form"])
-        uris.append(row["uri"])
-print(f"Loaded {len(forms)} surface forms.")
 
-# --- 2. embeddings ---
-resp = requests.post(API_URL, json={"model": EMB_MODEL, "input": forms})
-resp.raise_for_status()
-vectors = np.array([d["embedding"] for d in resp.json()["data"]], dtype="float32")
+def embed(texts, endpoint, model):
+    payload = {"input": texts, "model": model}
+    res = requests.post(endpoint, json=payload, timeout=120)
+    res.raise_for_status()
+    data = res.json()["data"]
+    return np.array([d["embedding"] for d in data], dtype="float32")
 
-# --- 3. нормализираме → индекс ---
-faiss.normalize_L2(vectors)              # cosine similarity
-index = faiss.IndexFlatIP(vectors.shape[1])
-index.add(vectors)
 
-# --- 4. запис ---
-os.makedirs(os.path.dirname(INDEX_OUT), exist_ok=True)
-faiss.write_index(index, INDEX_OUT)
-with open(LABELS_JSON, "w", encoding="utf-8") as f:
-    json.dump({"forms": forms, "uris": uris}, f, ensure_ascii=False, indent=2)
+def main():
+    ap = argparse.ArgumentParser()
+    # --- Start of Changes ---
+    # Use ROOT to define default paths
+    ap.add_argument("csv", type=Path, default=ROOT / "resources/surface_forms.csv", nargs='?')
+    ap.add_argument("--endpoint", default="http://localhost:1234/v1/embeddings")
+    ap.add_argument("--model", default="local-embedding-model")
+    ap.add_argument("-o", "--out_dir", type=Path, default=ROOT / "resources")
+    # --- End of Changes ---
+    args = ap.parse_args()
 
-print(f"Saved FAISS index → {INDEX_OUT}")
-print(f"Saved labels      → {LABELS_JSON}  (forms + uris)")
+    forms, uris = [], []
+    # --- Change ---
+    csv_path = args.csv
+    # --- End Change ---
+    with csv_path.open(encoding="utf-8") as fh:
+        rdr = csv.DictReader(fh)
+        for row in rdr:
+            uris.append(row["uri"])
+            forms.append(row["form"])
+
+    print(f"Embedding {len(forms)} surface forms…")
+    vecs = embed(forms, args.endpoint, args.model)
+
+    # L2 normalise for cosine similarity
+    faiss.normalize_L2(vecs)
+
+    index = faiss.IndexFlatIP(vecs.shape[1])
+    index.add(vecs)
+
+    args.out_dir.mkdir(exist_ok=True)
+    # --- Change ---
+    faiss_out_path = args.out_dir / "ont_index.faiss"
+    labels_out_path = args.out_dir / "labels.json"
+    faiss.write_index(index, str(faiss_out_path))
+    # --- End Change ---
+
+    with labels_out_path.open("w", encoding="utf-8") as fh:
+        json.dump({"forms": forms, "uris": uris}, fh, ensure_ascii=False, indent=2)
+
+    print(f"Index written to {faiss_out_path}")
+    print(f"Labels written to {labels_out_path}")
+
+
+if __name__ == "__main__":
+    main()
